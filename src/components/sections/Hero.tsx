@@ -1,5 +1,8 @@
+'use client'
+
 import Link from 'next/link'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
+import { useLanguage } from '@/context/LanguageContext'
 
 const trustIcons = [
   { icon: '🌿', label: '100% Natural' },
@@ -9,6 +12,8 @@ const trustIcons = [
 ]
 
 export default function Hero() {
+  const { t } = useLanguage()
+
   return (
     <section
       className="relative overflow-hidden"
@@ -30,34 +35,27 @@ export default function Hero() {
 
           {/* Left: Text */}
           <div>
-            {/* Tagline pill */}
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 mb-6">
-              <span className="text-brand-gold text-xs font-bold uppercase tracking-widest">
-                ♻ Sourced Only from Andhra Lands
-              </span>
-            </div>
-
             {/* Headline */}
             <h1 className="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-serif font-bold text-white leading-[1.1] mb-4">
-              Premium Foods.<br />
-              Trusted Quality.<br />
-              <span className="text-brand-gold">Healthier Families.</span>
+              {t.heroLine1}<br />
+              {t.heroLine2}<br />
+              <span className="text-brand-gold">{t.heroLine3}</span>
             </h1>
 
             {/* Subheading */}
             <p className="text-white/70 text-base md:text-lg leading-relaxed mb-8 max-w-lg">
-              Pure grains, pulses, spices &amp; essentials — carefully selected and hygienically packed for every home.
+              {t.heroSubheading}
             </p>
 
             {/* Trust icon row */}
             <div className="flex flex-wrap gap-3 mb-8">
-              {trustIcons.map((t) => (
+              {trustIcons.map((tr) => (
                 <div
-                  key={t.label}
+                  key={tr.label}
                   className="flex items-center gap-2 bg-white/10 border border-white/15 rounded-full px-3 py-1.5"
                 >
-                  <span className="text-sm">{t.icon}</span>
-                  <span className="text-white/85 text-xs font-medium">{t.label}</span>
+                  <span className="text-sm">{tr.icon}</span>
+                  <span className="text-white/85 text-xs font-medium">{tr.label}</span>
                 </div>
               ))}
             </div>
@@ -68,20 +66,20 @@ export default function Hero() {
                 href="/products"
                 className="inline-flex items-center gap-2 bg-brand-gold hover:bg-brand-gold-light text-white px-7 py-3.5 rounded-full font-semibold text-sm transition-all shadow-lg"
               >
-                Explore Products
+                {t.heroExploreProducts}
                 <ArrowRight size={16} />
               </Link>
               <Link
                 href="/bulk-orders"
                 className="inline-flex items-center gap-2 bg-white/15 border border-white/30 text-white px-7 py-3.5 rounded-full font-semibold text-sm hover:bg-white/25 transition-all"
               >
-                Bulk Orders
+                {t.heroBulkOrders}
               </Link>
               <Link
                 href="/contact"
                 className="inline-flex items-center gap-2 border border-white/30 text-white/80 px-7 py-3.5 rounded-full font-semibold text-sm hover:bg-white/10 transition-all"
               >
-                Contact Us
+                {t.heroContactUs}
               </Link>
             </div>
           </div>
