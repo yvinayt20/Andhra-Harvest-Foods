@@ -36,11 +36,11 @@ export default function Hero() {
 
         {/* Background */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0a2218] via-[#1B4332] to-[#2a5c3f]" />
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40 mix-blend-luminosity"
-            style={{ backgroundImage: "url('/images/brand-banner.jpg')" }}
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: "url('/images/Background.jpeg')" }}
           />
+          <div className="absolute inset-0 bg-black/50" />
           <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-black/55 to-transparent" />
           <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/30 to-transparent" />
         </div>
