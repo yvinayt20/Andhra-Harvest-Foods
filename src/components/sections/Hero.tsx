@@ -1,148 +1,163 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowRight, CheckCircle2 } from 'lucide-react'
-import { useLanguage } from '@/context/LanguageContext'
+import Image from 'next/image'
+import { ShoppingBag, LayoutGrid, Leaf, ShieldCheck, Package, Globe } from 'lucide-react'
 
-const trustIcons = [
-  { icon: '🌿', label: '100% Natural' },
-  { icon: '👑', label: 'Premium Quality' },
-  { icon: '📦', label: 'Hygienically Packed' },
-  { icon: '🤝', label: 'Trusted by Families' },
+const trustBadges = [
+  { Icon: Leaf, title: 'FARM FRESH', desc: 'Directly sourced from trusted farms' },
+  { Icon: ShieldCheck, title: 'FSSAI CERTIFIED', desc: 'Hygienic & safe for your family' },
+  { Icon: Package, title: 'PREMIUM PACKAGING', desc: 'Carefully packed to retain freshness' },
+  { Icon: Globe, title: 'EXPORT QUALITY', desc: 'Global standards, Andhra pride' },
 ]
 
-export default function Hero() {
-  const { t } = useLanguage()
+const categoryStrip = [
+  { slug: 'dals-nuts', name: 'Dals & Pulses', tagline: 'Pure & Protein Rich', emoji: '🫘', bg: 'linear-gradient(135deg,#c4860e,#7a4e1a)' },
+  { slug: 'powders', name: 'Spices & Masalas', tagline: 'Authentic Andhra Taste', emoji: '🌶️', bg: 'linear-gradient(135deg,#b22222,#5a0e0e)' },
+  { slug: 'rice-millets', name: 'Rice & Millets', tagline: 'Healthy & Natural', emoji: '🌾', bg: 'linear-gradient(135deg,#d4c9b0,#9e9077)' },
+  { slug: 'whole-spices', name: 'Whole Spices', tagline: 'Aromas That Define', emoji: '🌿', bg: 'linear-gradient(135deg,#2d6a4f,#1b3a29)' },
+  { slug: 'cooking-essentials', name: 'Pure Buffalo Ghee', tagline: '100% Pure & Natural', emoji: '🫙', bg: 'linear-gradient(135deg,#d4a017,#8a6300)' },
+  { slug: 'flours', name: 'Flours & Essentials', tagline: 'Daily Kitchen Needs', emoji: '🌻', bg: 'linear-gradient(135deg,#e8e0cc,#b0a080)' },
+]
 
+function WhatsAppIcon() {
   return (
-    <section
-      className="relative overflow-hidden"
-      style={{ backgroundColor: '#1B4332' }}
-    >
-      {/* Background image with overlay */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
-        style={{ backgroundImage: "url('/images/brand-banner.jpg')" }}
-      />
-      <div className="absolute inset-0 bg-hero-pattern opacity-40" />
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 shrink-0">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+    </svg>
+  )
+}
 
-      {/* Decorative blurs */}
-      <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-brand-gold/10 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-white/5 blur-3xl pointer-events-none" />
+export default function Hero() {
+  return (
+    <section>
+      {/* ── Full-screen hero ── */}
+      <div className="relative min-h-[calc(100svh-88px)] flex flex-col">
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        {/* Background */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0a2218] via-[#1B4332] to-[#2a5c3f]" />
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40 mix-blend-luminosity"
+            style={{ backgroundImage: "url('/images/brand-banner.jpg')" }}
+          />
+          <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-black/55 to-transparent" />
+          <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/30 to-transparent" />
+        </div>
 
-          {/* Left: Text */}
-          <div>
-            {/* Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-serif font-bold text-white leading-[1.1] mb-4">
-              {t.heroLine1}<br />
-              {t.heroLine2}<br />
-              <span className="text-brand-gold">{t.heroLine3}</span>
-            </h1>
+        {/* Center content */}
+        <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-4 py-20">
 
-            {/* Subheading */}
-            <p className="text-white/70 text-base md:text-lg leading-relaxed mb-8 max-w-lg">
-              {t.heroSubheading}
-            </p>
-
-            {/* Trust icon row */}
-            <div className="flex flex-wrap gap-3 mb-8">
-              {trustIcons.map((tr) => (
-                <div
-                  key={tr.label}
-                  className="flex items-center gap-2 bg-white/10 border border-white/15 rounded-full px-3 py-1.5"
-                >
-                  <span className="text-sm">{tr.icon}</span>
-                  <span className="text-white/85 text-xs font-medium">{tr.label}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* CTAs */}
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href="/products"
-                className="inline-flex items-center gap-2 bg-brand-gold hover:bg-brand-gold-light text-white px-7 py-3.5 rounded-full font-semibold text-sm transition-all shadow-lg"
-              >
-                {t.heroExploreProducts}
-                <ArrowRight size={16} />
-              </Link>
-              <Link
-                href="/bulk-orders"
-                className="inline-flex items-center gap-2 bg-white/15 border border-white/30 text-white px-7 py-3.5 rounded-full font-semibold text-sm hover:bg-white/25 transition-all"
-              >
-                {t.heroBulkOrders}
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 border border-white/30 text-white/80 px-7 py-3.5 rounded-full font-semibold text-sm hover:bg-white/10 transition-all"
-              >
-                {t.heroContactUs}
-              </Link>
-            </div>
+          {/* Emblem */}
+          <div className="mb-7">
+            <Image
+              src="/images/Logo.png"
+              alt="Andhra Harvest Foods"
+              width={140}
+              height={140}
+              className="mx-auto rounded-full shadow-2xl shadow-black/40"
+              priority
+            />
           </div>
 
-          {/* Right: Product showcase card */}
-          <div className="hidden lg:block">
-            <div className="relative">
-              {/* Main card */}
-              <div className="bg-white/10 border border-white/20 backdrop-blur-sm rounded-3xl p-7">
-                <p className="text-brand-gold text-xs font-bold uppercase tracking-widest mb-4 text-center">
-                  Our Product Range
-                </p>
-                <div className="grid grid-cols-2 gap-3">
-                  {[
-                    { icon: '🌾', name: 'Rice & Millets', sub: 'Premium quality grains' },
-                    { icon: '🫘', name: 'Dals & Pulses', sub: 'High protein, natural' },
-                    { icon: '🌶️', name: 'Spices & Powders', sub: 'Authentic Andhra taste' },
-                    { icon: '🌻', name: 'Flour Products', sub: 'Stone-ground, pure' },
-                    { icon: '🫙', name: 'Cooking Essentials', sub: 'Ghee, jaggery & more' },
-                    { icon: '☕', name: 'Beverages', sub: 'Tea & filter coffee' },
-                  ].map((item) => (
-                    <div
-                      key={item.name}
-                      className="bg-white/10 rounded-2xl p-3.5 flex items-center gap-3"
-                    >
-                      <span className="text-2xl">{item.icon}</span>
-                      <div>
-                        <p className="text-white text-sm font-semibold leading-tight">{item.name}</p>
-                        <p className="text-white/60 text-xs mt-0.5">{item.sub}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+          {/* Brand name */}
+          <h1 className="font-serif font-bold text-white leading-[0.95] uppercase">
+            <span className="block text-[clamp(3rem,10vw,6.5rem)] tracking-wider">ANDHRA</span>
+            <span className="block text-[clamp(1.6rem,5.5vw,3.8rem)] tracking-[0.22em] mt-1">HARVEST FOODS</span>
+          </h1>
 
-                {/* Promise */}
-                <div className="mt-5 bg-brand-gold/20 border border-brand-gold/30 rounded-2xl p-4 text-center">
-                  <div className="flex items-center justify-center gap-2 mb-1">
-                    <CheckCircle2 size={16} className="text-brand-gold" />
-                    <span className="text-white font-semibold text-sm">Our Promise</span>
-                  </div>
-                  <p className="text-white/75 text-xs leading-relaxed">
-                    &ldquo;We don&apos;t just sell food — we deliver trust, quality, and care to every family.&rdquo;
-                  </p>
+          <p className="text-brand-gold text-[11px] md:text-sm tracking-[0.4em] uppercase font-semibold mt-4 mb-5">
+            TRADITION · PURITY · TRUST
+          </p>
+
+          {/* Divider */}
+          <div className="flex items-center gap-4 mb-6">
+            <div className="w-20 h-px bg-gradient-to-r from-transparent to-brand-gold/60" />
+            <span className="text-brand-gold text-sm">✦</span>
+            <div className="w-20 h-px bg-gradient-to-l from-transparent to-brand-gold/60" />
+          </div>
+
+          {/* Hero tagline */}
+          <p className="font-serif italic text-brand-gold text-[clamp(1.3rem,4vw,2.4rem)] font-semibold mb-3">
+            From Our Fields To Your Table
+          </p>
+          <p className="text-white/70 text-sm md:text-base max-w-md mx-auto mb-10 leading-relaxed">
+            Pure. Natural. Authentic. Made with love from our farms to your family.
+          </p>
+
+          {/* CTA buttons */}
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href="/products"
+              className="inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-light text-white px-7 py-3.5 rounded-[4px] font-bold text-sm tracking-widest uppercase transition-colors shadow-lg"
+            >
+              <ShoppingBag size={15} />
+              SHOP NOW
+            </Link>
+            <Link
+              href="/products"
+              className="inline-flex items-center gap-2 bg-brand-gold hover:bg-brand-gold-light text-white px-7 py-3.5 rounded-[4px] font-bold text-sm tracking-widest uppercase transition-colors shadow-lg"
+            >
+              <LayoutGrid size={15} />
+              EXPLORE PRODUCTS
+            </Link>
+            <a
+              href="https://wa.me/919866669199"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 border-2 border-white/50 hover:border-white/80 text-white hover:bg-white/10 px-7 py-3.5 rounded-[4px] font-bold text-sm tracking-widest uppercase transition-all"
+            >
+              <WhatsAppIcon />
+              ORDER ON WHATSAPP
+            </a>
+          </div>
+        </div>
+
+        {/* Trust badges */}
+        <div className="relative z-10 px-4 pb-6 max-w-5xl mx-auto w-full">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {trustBadges.map(({ Icon, title, desc }) => (
+              <div
+                key={title}
+                className="bg-white/95 backdrop-blur-sm rounded-lg px-4 py-4 flex items-start gap-3 shadow-lg"
+              >
+                <div className="shrink-0 w-9 h-9 rounded-full bg-brand-green/10 flex items-center justify-center">
+                  <Icon size={17} className="text-brand-green" />
+                </div>
+                <div>
+                  <p className="text-brand-green font-extrabold text-[11px] tracking-wider uppercase leading-tight">{title}</p>
+                  <p className="text-gray-500 text-[11px] mt-0.5 leading-tight">{desc}</p>
                 </div>
               </div>
-
-              {/* Floating badges */}
-              <div className="absolute -top-4 -right-4 bg-brand-gold text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
-                FSSAI Certified
-              </div>
-              <div className="absolute -bottom-4 -left-4 bg-white text-brand-green text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
-                45+ Products
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Bottom wave */}
-      <div className="relative">
-        <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 60H1440V30C1200 0 960 60 720 30C480 0 240 60 0 30V60Z" fill="#FFFBF0" />
-        </svg>
+      {/* ── Category strip ── */}
+      <div className="bg-brand-green border-t border-brand-gold/20">
+        <div className="max-w-7xl mx-auto px-6 py-5 overflow-x-auto no-scrollbar">
+          <div className="flex items-start gap-8 min-w-max lg:min-w-0 lg:justify-center">
+            {categoryStrip.map((cat) => (
+              <Link
+                key={cat.slug}
+                href={`/products?category=${cat.slug}`}
+                className="flex flex-col items-center gap-2 group"
+              >
+                <div
+                  className="w-[68px] h-[68px] rounded-full border-2 border-white/20 group-hover:border-brand-gold/70 flex items-center justify-center text-[28px] transition-all group-hover:scale-105 shadow-md"
+                  style={{ background: cat.bg }}
+                >
+                  {cat.emoji}
+                </div>
+                <div className="text-center">
+                  <p className="text-white text-[11px] font-bold uppercase tracking-wide leading-tight">{cat.name}</p>
+                  <p className="text-white/50 text-[10px] leading-tight mt-0.5">{cat.tagline}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   )
