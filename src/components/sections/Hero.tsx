@@ -11,14 +11,6 @@ const trustBadges = [
   { Icon: Globe, title: 'EXPORT QUALITY', desc: 'Global standards, Andhra pride' },
 ]
 
-const categoryStrip = [
-  { slug: 'dals-nuts', name: 'Dals & Pulses', tagline: 'Pure & Protein Rich', emoji: '🫘', bg: 'linear-gradient(135deg,#c4860e,#7a4e1a)' },
-  { slug: 'powders', name: 'Spices & Masalas', tagline: 'Authentic Andhra Taste', emoji: '🌶️', bg: 'linear-gradient(135deg,#b22222,#5a0e0e)' },
-  { slug: 'rice-millets', name: 'Rice & Millets', tagline: 'Healthy & Natural', emoji: '🌾', bg: 'linear-gradient(135deg,#d4c9b0,#9e9077)' },
-  { slug: 'whole-spices', name: 'Whole Spices', tagline: 'Aromas That Define', emoji: '🌿', bg: 'linear-gradient(135deg,#2d6a4f,#1b3a29)' },
-  { slug: 'cooking-essentials', name: 'Pure Buffalo Ghee', tagline: '100% Pure & Natural', emoji: '🫙', bg: 'linear-gradient(135deg,#d4a017,#8a6300)' },
-  { slug: 'flours', name: 'Flours & Essentials', tagline: 'Daily Kitchen Needs', emoji: '🌻', bg: 'linear-gradient(135deg,#e8e0cc,#b0a080)' },
-]
 
 function WhatsAppIcon() {
   return (
@@ -129,32 +121,6 @@ export default function Hero() {
                   <p className="text-gray-500 text-[11px] mt-0.5 leading-tight">{desc}</p>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* ── Category strip ── */}
-      <div className="bg-brand-green border-t border-brand-gold/20">
-        <div className="max-w-7xl mx-auto px-6 py-5 overflow-x-auto no-scrollbar">
-          <div className="flex items-start gap-8 min-w-max lg:min-w-0 lg:justify-center">
-            {categoryStrip.map((cat) => (
-              <Link
-                key={cat.slug}
-                href={`/products?category=${cat.slug}`}
-                className="flex flex-col items-center gap-2 group"
-              >
-                <div
-                  className="w-[68px] h-[68px] rounded-full border-2 border-white/20 group-hover:border-brand-gold/70 flex items-center justify-center text-[28px] transition-all group-hover:scale-105 shadow-md"
-                  style={{ background: cat.bg }}
-                >
-                  {cat.emoji}
-                </div>
-                <div className="text-center">
-                  <p className="text-white text-[11px] font-bold uppercase tracking-wide leading-tight">{cat.name}</p>
-                  <p className="text-white/50 text-[10px] leading-tight mt-0.5">{cat.tagline}</p>
-                </div>
-              </Link>
             ))}
           </div>
         </div>
