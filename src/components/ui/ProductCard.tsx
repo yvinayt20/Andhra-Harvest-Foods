@@ -17,6 +17,7 @@ const categoryIcons: Record<string, string> = {
   'flours': '🌻',
   'cooking-essentials': '🫙',
   'beverages': '☕',
+  'wellness-range': '💚',
 }
 
 export default function ProductCard({ product, className }: ProductCardProps) {
@@ -59,6 +60,13 @@ export default function ProductCard({ product, className }: ProductCardProps) {
           <div className="absolute top-3 left-3">
             <span className="bg-brand-gold text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">
               Popular
+            </span>
+          </div>
+        )}
+        {product.isNew && (
+          <div className="absolute top-3 right-3">
+            <span className="bg-purple-500 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">
+              New
             </span>
           </div>
         )}

@@ -4,6 +4,8 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import { CartProvider } from '@/context/CartContext'
 import { LanguageProvider } from '@/context/LanguageContext'
+import { AuthProvider } from '@/context/AuthContext'
+import { ProductOverridesProvider } from '@/context/ProductOverridesContext'
 
 export const metadata: Metadata = {
   title: {
@@ -26,13 +28,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
-        <LanguageProvider>
-          <CartProvider>
-            <Header />
-            <main>{children}</main>
-            <Footer />
-          </CartProvider>
-        </LanguageProvider>
+        <AuthProvider>
+          <ProductOverridesProvider>
+            <LanguageProvider>
+              <CartProvider>
+                <Header />
+                <main>{children}</main>
+                <Footer />
+              </CartProvider>
+            </LanguageProvider>
+          </ProductOverridesProvider>
+        </AuthProvider>
       </body>
     </html>
   )

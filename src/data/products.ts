@@ -57,6 +57,14 @@ export const categories: Category[] = [
     description: 'Premium tea and coffee powders from the finest Andhra estates',
     icon: '☕',
   },
+  {
+    id: 'wellness-range',
+    name: 'Wellness Range',
+    nameTelugu: 'వెల్నెస్ రేంజ్',
+    slug: 'wellness-range',
+    description: 'Premium health mixes crafted with ancient millets, nuts, and natural ingredients for modern families',
+    icon: '🌿',
+  },
 ]
 
 export const products: Product[] = [
@@ -935,6 +943,88 @@ export const products: Product[] = [
     features: ['Fresh Ground', 'Rich Flavour', 'No Additives', 'South Indian Style'],
     tags: ['coffee', 'filter coffee', 'beverage'],
     isFeatured: false,
+    gstRate: 5,
+  },
+
+  // ─── Wellness Range ───────────────────────────────────────────────────────
+  {
+    id: 'super-protein-mix',
+    name: 'Super Protein Mix',
+    nameTelugu: 'సూపర్ ప్రొటీన్ మిక్స్',
+    slug: 'super-protein-mix',
+    categorySlug: 'wellness-range',
+    description:
+      'A powerful blend of Ragi, Jowar, Bajra, Green Gram, Bengal Gram, Almonds, Flax Seeds, and Cardamom — natural protein for stronger families.',
+    longDescription:
+      'Our Super Protein Mix combines ancient grains and nuts to deliver a high-protein, energy-boosting supplement for the whole family. Rich in fibre and essential nutrients, it can be prepared by adding 2 tablespoons to milk or water, mixing well, boiling for 3–5 minutes, and adding jaggery or honey if desired. Serve hot.',
+    image: null,
+    variants: [
+      { size: '1 kg', price: 349 },
+    ],
+    features: ['High Protein', 'Muscle Support', 'Energy Booster', 'Rich in Fibre', 'Daily Nutrition'],
+    tags: ['wellness', 'protein', 'health mix', 'millet', 'natural'],
+    isFeatured: true,
+    isNew: true,
+    gstRate: 5,
+  },
+  {
+    id: 'millet-health-mix',
+    name: 'Millet Health Mix',
+    nameTelugu: 'మిల్లెట్ హెల్త్ మిక్స్',
+    slug: 'millet-health-mix',
+    categorySlug: 'wellness-range',
+    description:
+      'Ancient millets — Ragi, Foxtail Millet, Little Millet, Kodo Millet, Barnyard Millet, Jowar, and Flax Seeds — blended for modern nutrition.',
+    longDescription:
+      'Our Millet Health Mix harnesses the power of seven ancient millets for high fibre, weight management, better digestion, long-lasting energy, and heart health. Mix 2 tablespoons in water, cook for 5 minutes, add milk or buttermilk, and consume daily.',
+    image: null,
+    variants: [
+      { size: '1 kg', price: 299 },
+    ],
+    features: ['High Fiber', 'Weight Management', 'Better Digestion', 'Long Lasting Energy', 'Heart Friendly'],
+    tags: ['wellness', 'millet', 'health mix', 'fibre', 'natural'],
+    isFeatured: true,
+    isNew: true,
+    gstRate: 5,
+  },
+  {
+    id: 'diabetes-care-millet-mix',
+    name: 'Diabetes Care Millet Mix',
+    nameTelugu: 'డయాబెటిస్ కేర్ మిల్లెట్ మిక్స్',
+    slug: 'diabetes-care-millet-mix',
+    categorySlug: 'wellness-range',
+    description:
+      'Smart nutrition for a better lifestyle — Foxtail Millet, Little Millet, Barnyard Millet, Fenugreek Seeds, Cinnamon, and Flax Seeds.',
+    longDescription:
+      'Specially formulated with low-GI ingredients, our Diabetes Care Millet Mix supports healthy blood sugar levels with high fibre, sustained energy, healthy lifestyle support, and natural nutrition. Add 2 tablespoons to warm water, stir continuously, cook for 3–5 minutes, and consume daily (morning or evening).',
+    image: null,
+    variants: [
+      { size: '1 kg', price: 349 },
+    ],
+    features: ['Low GI Ingredients', 'High Fiber', 'Sustained Energy', 'Healthy Lifestyle Support', 'Natural Nutrition'],
+    tags: ['wellness', 'diabetes', 'health mix', 'low GI', 'millet'],
+    isFeatured: true,
+    isNew: true,
+    gstRate: 5,
+  },
+  {
+    id: 'kids-growth-health-mix',
+    name: 'Kids Growth Health Mix',
+    nameTelugu: 'కిడ్స్ గ్రోత్ హెల్త్ మిక్స్',
+    slug: 'kids-growth-health-mix',
+    categorySlug: 'wellness-range',
+    description:
+      'Complete nutrition for healthy growth — Ragi, Green Gram, Almonds, Cashews, Dates Powder, and Cardamom for kids above 2 years.',
+    longDescription:
+      'Our Kids Growth Health Mix is designed to support growth and development, bone health, brain development, natural energy, and daily nutrition for children. Mix 2 tablespoons with milk, cook for 3–5 minutes, serve warm. Ideal for kids above 2 years.',
+    image: null,
+    variants: [
+      { size: '1 kg', price: 399 },
+    ],
+    features: ['Growth & Development', 'Bone Health', 'Brain Development', 'Natural Energy', 'Daily Nutrition'],
+    tags: ['wellness', 'kids', 'health mix', 'growth', 'natural'],
+    isFeatured: true,
+    isNew: true,
     gstRate: 5,
   },
 ]

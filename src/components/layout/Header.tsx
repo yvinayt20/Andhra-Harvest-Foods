@@ -5,10 +5,11 @@
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Menu, X, ShoppingCart, Phone, ChevronDown, Globe, Search, User } from 'lucide-react'
+import { Menu, X, ShoppingCart, Phone, ChevronDown, Globe, Search, User, LogOut, ShieldCheck } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useCart } from '@/context/CartContext'
 import { useLanguage, LANGUAGES, type Language } from '@/context/LanguageContext'
+import { useAuth } from '@/context/AuthContext'
 
 const productCategories = [
   { href: '/products?category=rice-millets', label: 'Rice & Millets', icon: '🌾' },
@@ -18,6 +19,7 @@ const productCategories = [
   { href: '/products?category=flours', label: 'Flours', icon: '🌻' },
   { href: '/products?category=cooking-essentials', label: 'Cooking Essentials', icon: '🫙' },
   { href: '/products?category=beverages', label: 'Beverages', icon: '☕' },
+  { href: '/products?category=wellness-range', label: 'Wellness Range', icon: '💚' },
 ]
 
 export default function Header() {
@@ -25,9 +27,12 @@ export default function Header() {
   const [productsOpen, setProductsOpen] = useState(false)
   const [categoriesOpen, setCategoriesOpen] = useState(false)
   const [langOpen, setLangOpen] = useState(false)
+  const [accountOpen, setAccountOpen] = useState(false)
   const { totalItems } = useCart()
   const { language, setLanguage, t } = useLanguage()
+  const { user, signOut, isAdmin } = useAuth()
   const langRef = useRef<HTMLDivElement>(null)
+  const accountRef = useRef<HTMLDivElement>(null)
 
   const navLinks = [
     { href: '/', label: t.navHome },
@@ -38,11 +43,14 @@ export default function Header() {
     { href: '/contact', label: t.navContact },
   ]
 
-  // Close language dropdown on outside click
+  // Close language + account dropdowns on outside click
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       if (langRef.current && !langRef.current.contains(e.target as Node)) {
         setLangOpen(false)
+      }
+      if (accountRef.current && !accountRef.current.contains(e.target as Node)) {
+        setAccountOpen(false)
       }
     }
     document.addEventListener('mousedown', handleClick)
@@ -150,24 +158,26 @@ export default function Header() {
                         <ChevronDown size={14} className={cn('transition-transform', productsOpen && 'rotate-180')} />
                       </button>
                       {productsOpen && (
-                        <div className="absolute top-full left-0 mt-1 w-56 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50">
-                          <Link
-                            href="/products"
-                            className="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-brand-green hover:bg-brand-green-50 transition-colors"
-                          >
-                            {t.navAllProducts}
-                          </Link>
-                          <div className="border-t border-gray-100 my-1" />
-                          {productCategories.map((cat) => (
+                        <div className="absolute top-full left-0 w-56 pt-1 z-50">
+                          <div className="bg-white rounded-xl shadow-lg border border-gray-100 py-2">
                             <Link
-                              key={cat.href}
-                              href={cat.href}
-                              className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-700 hover:text-brand-green hover:bg-brand-green-50 transition-colors"
+                              href="/products"
+                              className="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-brand-green hover:bg-brand-green-50 transition-colors"
                             >
-                              <span>{cat.icon}</span>
-                              {cat.label}
+                              {t.navAllProducts}
                             </Link>
-                          ))}
+                            <div className="border-t border-gray-100 my-1" />
+                            {productCategories.map((cat) => (
+                              <Link
+                                key={cat.href}
+                                href={cat.href}
+                                className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-700 hover:text-brand-green hover:bg-brand-green-50 transition-colors"
+                              >
+                                <span>{cat.icon}</span>
+                                {cat.label}
+                              </Link>
+                            ))}
+                          </div>
                         </div>
                       )}
                     </div>
@@ -186,17 +196,19 @@ export default function Header() {
                         <ChevronDown size={14} className={cn('transition-transform', categoriesOpen && 'rotate-180')} />
                       </button>
                       {categoriesOpen && (
-                        <div className="absolute top-full left-0 mt-1 w-56 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50">
-                          {productCategories.map((cat) => (
-                            <Link
-                              key={cat.href}
-                              href={cat.href}
-                              className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-700 hover:text-brand-green hover:bg-brand-green-50 transition-colors"
-                            >
-                              <span>{cat.icon}</span>
-                              {cat.label}
-                            </Link>
-                          ))}
+                        <div className="absolute top-full left-0 w-56 pt-1 z-50">
+                          <div className="bg-white rounded-xl shadow-lg border border-gray-100 py-2">
+                            {productCategories.map((cat) => (
+                              <Link
+                                key={cat.href}
+                                href={cat.href}
+                                className="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-700 hover:text-brand-green hover:bg-brand-green-50 transition-colors"
+                              >
+                                <span>{cat.icon}</span>
+                                {cat.label}
+                              </Link>
+                            ))}
+                          </div>
                         </div>
                       )}
                     </div>
@@ -222,12 +234,52 @@ export default function Header() {
               >
                 <Search size={20} />
               </button>
-              <button
-                className="p-2.5 text-gray-600 hover:text-brand-green rounded-lg hover:bg-brand-green-50 transition-colors"
-                aria-label="Account"
-              >
-                <User size={20} />
-              </button>
+
+              {/* Account dropdown */}
+              <div ref={accountRef} className="relative">
+                <button
+                  onClick={() => setAccountOpen((o) => !o)}
+                  className="p-2.5 text-gray-600 hover:text-brand-green rounded-lg hover:bg-brand-green-50 transition-colors"
+                  aria-label="Account"
+                >
+                  <User size={20} />
+                </button>
+                {accountOpen && (
+                  <div className="absolute top-full right-0 mt-1.5 w-48 bg-white rounded-xl shadow-lg border border-gray-100 py-1.5 z-50">
+                    {user ? (
+                      <>
+                        <p className="px-4 py-2 text-xs text-gray-400 truncate">{user.email}</p>
+                        <div className="border-t border-gray-100 my-1" />
+                        <Link href="/account" onClick={() => setAccountOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:text-brand-green hover:bg-brand-green-50 transition-colors">
+                          <User size={14} /> My Account
+                        </Link>
+                        {isAdmin && (
+                          <Link href="/admin" onClick={() => setAccountOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:text-brand-green hover:bg-brand-green-50 transition-colors">
+                            <ShieldCheck size={14} /> Admin Panel
+                          </Link>
+                        )}
+                        <div className="border-t border-gray-100 my-1" />
+                        <button
+                          onClick={() => { signOut(); setAccountOpen(false) }}
+                          className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-red-50 transition-colors"
+                        >
+                          <LogOut size={14} /> Sign Out
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <Link href="/auth/login" onClick={() => setAccountOpen(false)} className="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-brand-green hover:bg-brand-green-50 transition-colors">
+                          Sign In
+                        </Link>
+                        <Link href="/auth/signup" onClick={() => setAccountOpen(false)} className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:text-brand-green hover:bg-brand-green-50 transition-colors">
+                          Create Account
+                        </Link>
+                      </>
+                    )}
+                  </div>
+                )}
+              </div>
+
               <Link
                 href="/cart"
                 className="relative p-2.5 text-gray-600 hover:text-brand-green rounded-lg hover:bg-brand-green-50 transition-colors"
@@ -306,6 +358,34 @@ export default function Header() {
           >
             {t.shopNow}
           </Link>
+          <div className="border-t border-gray-100 my-2" />
+          {user ? (
+            <>
+              <Link href="/account" onClick={() => setMobileOpen(false)} className="px-4 py-2.5 text-sm text-gray-700 hover:text-brand-green rounded-lg hover:bg-brand-green-50 transition-colors flex items-center gap-2">
+                <User size={16} /> My Account
+              </Link>
+              {isAdmin && (
+                <Link href="/admin" onClick={() => setMobileOpen(false)} className="px-4 py-2.5 text-sm text-gray-700 hover:text-brand-green rounded-lg hover:bg-brand-green-50 transition-colors flex items-center gap-2">
+                  <ShieldCheck size={16} /> Admin Panel
+                </Link>
+              )}
+              <button
+                onClick={() => { signOut(); setMobileOpen(false) }}
+                className="px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 rounded-lg transition-colors flex items-center gap-2 w-full"
+              >
+                <LogOut size={16} /> Sign Out
+              </button>
+            </>
+          ) : (
+            <>
+              <Link href="/auth/login" onClick={() => setMobileOpen(false)} className="px-4 py-2.5 text-sm font-semibold text-brand-green hover:bg-brand-green-50 rounded-lg transition-colors">
+                Sign In
+              </Link>
+              <Link href="/auth/signup" onClick={() => setMobileOpen(false)} className="px-4 py-2.5 text-sm text-gray-700 hover:text-brand-green hover:bg-brand-green-50 rounded-lg transition-colors">
+                Create Account
+              </Link>
+            </>
+          )}
         </nav>
       </div>
     </header>

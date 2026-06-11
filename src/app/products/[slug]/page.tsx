@@ -12,6 +12,7 @@ import {
 import { getCategoryColors } from '@/lib/utils'
 import ProductCard from '@/components/ui/ProductCard'
 import AddToCartButton from '@/components/ui/AddToCartButton'
+import FeedbackSection from '@/components/sections/FeedbackSection'
 
 interface Props {
   params: { slug: string }
@@ -192,6 +193,9 @@ export default function ProductDetailPage({ params }: Props) {
             </div>
           </div>
         )}
+
+        {/* Customer reviews */}
+        <FeedbackSection productId={product.id} />
       </div>
     </div>
   )

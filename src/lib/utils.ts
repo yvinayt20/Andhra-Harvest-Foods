@@ -70,6 +70,15 @@ export const categoryColorMap: Record<string, CategoryColors> = {
     placeholderTo: 'to-stone-200',
     accentBg: 'bg-stone-500',
   },
+  'wellness-range': {
+    gradient: 'from-purple-50 to-purple-100',
+    textColor: 'text-purple-800',
+    borderColor: 'border-purple-200',
+    badgeBg: 'bg-purple-100 text-purple-800',
+    placeholderFrom: 'from-purple-100',
+    placeholderTo: 'to-purple-200',
+    accentBg: 'bg-purple-500',
+  },
 }
 
 export function getCategoryColors(slug: string): CategoryColors {
